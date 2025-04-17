@@ -1,5 +1,9 @@
 ![export](https://github.com/MiniMax-AI/MiniMax-01/raw/main/figures/MiniMaxLogo-Light.png)
 
+<a href="https://glama.ai/mcp/servers/@MiniMax-AI/MiniMax-MCP-JS">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@MiniMax-AI/MiniMax-MCP-JS/badge" alt="MiniMax JS MCP server" />
+</a>
+
 <div align="center">
 
 # MiniMax MCP JS
