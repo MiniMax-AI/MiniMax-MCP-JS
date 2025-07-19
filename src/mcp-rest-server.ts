@@ -217,7 +217,8 @@ export class MCPRestServer {
                 { name: 'sampleRate', description: 'Sample rate (Hz), values: [8000, 16000, 22050, 24000, 32000, 44100]', required: false },
                 { name: 'bitrate', description: 'Bitrate (bps), values: [64000, 96000, 128000, 160000, 192000, 224000, 256000, 320000]', required: false },
                 { name: 'channel', description: 'Audio channels, values: [1, 2]', required: false },
-                { name: 'languageBoost', description: 'Language boost', required: false },
+                { name: 'languageBoost', description: `Enhance the ability to recognize specified languages and dialects. Supported values include: 'Chinese', 'Chinese,Yue', 'English', 'Arabic', 'Russian', 'Spanish', 'French', 'Portuguese', 'German', 'Turkish', 'Dutch', 'Ukrainian', 'Vietnamese', 'Indonesian', 'Japanese', 'Italian', 'Korean', 'Thai', 'Polish', 'Romanian', 'Greek', 'Czech', 'Finnish', 'Hindi', 'auto', default is 'auto'`, required: false },
+                { name: 'subtitleEnable', description: 'The parameter controls whether the subtitle service is enabled. If this parameter is not provided, the default value is false', required: false },
                 { name: 'outputFile', description: 'Output file path, auto-generated if not provided', required: false }
               ],
               inputSchema: {
@@ -235,7 +236,8 @@ export class MCPRestServer {
                   sampleRate: { type: 'number' },
                   bitrate: { type: 'number' },
                   channel: { type: 'number' },
-                  languageBoost: { type: 'boolean' },
+                  languageBoost: { type: 'string' },
+                  subtitleEnable: { type: 'boolean' },
                   outputFile: { type: 'string' }
                 },
                 required: ['text']

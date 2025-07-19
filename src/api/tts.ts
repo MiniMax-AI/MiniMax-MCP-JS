@@ -13,7 +13,7 @@ export class TTSAPI {
     this.api = api;
   }
 
-  async generateSpeech(request: TTSRequest): Promise<string> {
+  async generateSpeech(request: TTSRequest): Promise<any> {
     // Validate required parameters
     if (!request.text || request.text.trim() === '') {
       throw new MinimaxRequestError(ERROR_TEXT_REQUIRED);
@@ -51,9 +51,6 @@ export class TTSAPI {
         channel: this.ensureValidChannel(request.channel)
       },
       language_boost: request.languageBoost || 'auto',
-      latex_read: request.latexRead,
-      pronunciation_dict: request.pronunciationDict,
-      stream: request.stream,
       subtitle_enable: request.subtitleEnable
     };
 
@@ -72,13 +69,18 @@ export class TTSAPI {
       // Process response
       const audioData = response?.data?.audio;
 
+      const subtitleFile = response?.data?.subtitle_file;
+
       if (!audioData) {
         throw new MinimaxRequestError('Could not get audio data from response');
       }
 
       // If URL mode, return URL directly
       if (request.outputFormat === RESOURCE_MODE_URL) {
-        return audioData;
+        return {
+          audio: audioData,
+          subtitle: subtitleFile
+        };
       }
 
       // If base64 mode, decode and save file
@@ -95,7 +97,10 @@ export class TTSAPI {
         // Write to file
         fs.writeFileSync(outputFile, audioBuffer);
 
-        return outputFile;
+        return {
+          audio: outputFile,
+          subtitle: subtitleFile
+        };
       } catch (error) {
         throw new MinimaxRequestError(`Failed to save audio file: ${String(error)}`);
       }

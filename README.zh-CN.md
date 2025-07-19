@@ -296,11 +296,9 @@ MINIMAX_RESOURCE_MODE=url
 - `sampleRate`: 采样率 (Hz)，选项为 8000, 16000, 22050, 24000, 32000, 44100，默认为 32000
 - `bitrate`: 比特率 (bps)，选项为 64000, 96000, 128000, 160000, 192000, 224000, 256000, 320000，默认为 128000
 - `channel`: 音频通道数，选项为 1 或 2，默认为 1
-- `languageBoost`: 语言增强，默认为 'auto'
-- `latexRead`: 启用LaTeX公式朗读
-- `pronunciationDict`: 发音词典
-- `stream`: 启用流式输出
-- `subtitleEnable`: 启用字幕生成
+- `languageBoost`: 增强对指定的小语种和方言的识别能力，设置后可以提升在指定小语种/方言场景下的语音表现。如果不明确小语种类型，则可以选择"auto"，模型将自主判断小语种类型。支持以下取值：
+'Chinese', 'Chinese,Yue', 'English', 'Arabic', 'Russian', 'Spanish', 'French', 'Portuguese', 'German', 'Turkish', 'Dutch', 'Ukrainian', 'Vietnamese', 'Indonesian', 'Japanese', 'Italian', 'Korean', 'Thai', 'Polish', 'Romanian', 'Greek', 'Czech', 'Finnish', 'Hindi', 'auto'，默认为 'auto'
+- `subtitleEnable`: 控制是否开启字幕服务的开关。默认为false
 - `outputDirectory`: 保存输出文件的目录。 `outputDirectory` 是相对于 `MINIMAX_MCP_BASE_PATH`（或配置中的 `basePath`）的。最终的保存路径是 `${basePath}/${outputDirectory}`, 例如, 如果 `MINIMAX_MCP_BASE_PATH=~/Desktop` 且 `outputDirectory=workspace`，则输出将被保存到 `~/Desktop/workspace/` (可选)
 - `outputFile`: 保存输出文件的路径 (可选，如果未提供则自动生成)
 

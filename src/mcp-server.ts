@@ -136,7 +136,9 @@ export class MCPServer {
           .string()
           .optional()
           .default(DEFAULT_EMOTION)
-          .describe('Speech emotion, values: ["happy", "sad", "angry", "fearful", "disgusted", "surprised", "neutral"]'),
+          .describe(
+            'Speech emotion, values: ["happy", "sad", "angry", "fearful", "disgusted", "surprised", "neutral"]',
+          ),
         format: z
           .string()
           .optional()
@@ -153,7 +155,15 @@ export class MCPServer {
           .default(DEFAULT_BITRATE)
           .describe('Bitrate (bps), values: [64000, 96000, 128000, 160000, 192000, 224000, 256000, 320000]'),
         channel: z.number().optional().default(DEFAULT_CHANNEL).describe('Audio channels, values: [1, 2]'),
-        languageBoost: z.string().optional().default(DEFAULT_LANGUAGE_BOOST).describe('Language boost'),
+        languageBoost: z.string().optional().default(DEFAULT_LANGUAGE_BOOST)
+          .describe(`Enhance the ability to recognize specified languages and dialects. Supported values include: 'Chinese', 'Chinese,Yue', 'English', 'Arabic', 'Russian', 'Spanish', 'French', 'Portuguese', 'German', 'Turkish', 'Dutch', 'Ukrainian', 'Vietnamese', 'Indonesian', 'Japanese', 'Italian', 'Korean', 'Thai', 'Polish', 'Romanian', 'Greek', 'Czech', 'Finnish', 'Hindi', 'auto', default is 'auto'`),
+        subtitleEnable: z
+          .boolean()
+          .optional()
+          .default(false)
+          .describe(
+            'The parameter controls whether the subtitle service is enabled. If this parameter is not provided, the default value is false',
+          ),
         outputFile: z
           .string()
           .optional()
@@ -176,6 +186,7 @@ export class MCPServer {
             bitrate: args.bitrate || DEFAULT_BITRATE,
             channel: args.channel || DEFAULT_CHANNEL,
             languageBoost: args.languageBoost || DEFAULT_LANGUAGE_BOOST,
+            subtitleEnable: args.subtitleEnable || false,
             outputFile: args.outputFile,
           };
 
@@ -218,7 +229,7 @@ export class MCPServer {
               content: [
                 {
                   type: 'text',
-                  text: `Success. Audio URL: ${result}`,
+                  text: `Success. Audio URL: ${result.audio}. ${ttsParams.subtitleEnable ? `Subtitle file saved: ${result.subtitle}` : ''}`,
                 },
               ],
             };
@@ -227,7 +238,7 @@ export class MCPServer {
               content: [
                 {
                   type: 'text',
-                  text: `Audio file saved: ${result}. Voice used: ${ttsParams.voiceId}`,
+                  text: `Audio file saved: ${result.audio}. ${ttsParams.subtitleEnable ? `Subtitle file saved: ${result.subtitle}. ` : ''}Voice used: ${ttsParams.voiceId}`,
                 },
               ],
             };
