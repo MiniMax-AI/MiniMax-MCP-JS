@@ -138,6 +138,27 @@ Go to `Claude > Settings > Developer > Edit Config > claude_desktop_config.json`
 }
 ```
 
+Optional local guardrail with [Armorer Guard](https://github.com/ArmorerLabs/Armorer-Guard):
+
+```json
+{
+  "mcpServers": {
+    "minimax-mcp-js": {
+      "command": "armorer-guard",
+      "args": ["mcp-proxy", "--", "npx", "-y", "minimax-mcp-js"],
+      "env": {
+        "MINIMAX_API_HOST": "<https://api.minimaxi.chat|https://api.minimax.chat>",
+        "MINIMAX_API_KEY": "<your-api-key-here>",
+        "MINIMAX_MCP_BASE_PATH": "<local-output-dir-path, such as /User/xxx/Desktop>",
+        "MINIMAX_RESOURCE_MODE": "<optional, [url|local], url is default, audio/image/video are downloaded locally or provided in URL format>"
+      }
+    }
+  }
+}
+```
+
+This wraps the same MiniMax MCP server with a local proxy that inspects tool-call arguments for prompt injection, credential leakage, exfiltration risk, and dangerous actions before forwarding safe calls.
+
 #### Cursor
 
 Go to `Cursor → Preferences → Cursor Settings → MCP → Add new global MCP Server` to add the above config.
