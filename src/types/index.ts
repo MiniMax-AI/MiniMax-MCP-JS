@@ -66,16 +66,6 @@ export interface PlayAudioRequest {
   isUrl?: boolean;
 }
 
-export interface MusicGenerationRequest extends BaseToolRequest {
-  prompt: string;
-  lyrics: string;
-  sampleRate?: number;
-  bitrate?: number;
-  format?: string;
-  channel?: number;
-  outputFormat?: string;
-}
-
 export interface VoiceDesignRequest extends BaseToolRequest {
   prompt: string;
   previewText: string;
@@ -96,4 +86,4 @@ export interface Config {
   apiHost?: string;
   resourceMode?: string;
   server?: ServerOptions;
-} 
+}
