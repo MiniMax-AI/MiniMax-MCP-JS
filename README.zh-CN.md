@@ -48,11 +48,6 @@ MiniMax MCP JS 是 MiniMax MCP 的 JavaScript/TypeScript 实现，提供图像�
 
 ## 更新日志
 
-### 2026年8月20日 — v0.0.18
-
-#### ⚠️ 破坏性变更
-- 配合 Music API 下线，已从 stdio、REST 和 SSE 传输模式中移除 `music_generation` 工具。依赖该工具的客户端需将其从预期工具清单中删除。
-
 ### 2025年7月22日
 
 #### 🔧 修复与优化

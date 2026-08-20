@@ -49,11 +49,6 @@ JavaScript/TypeScript implementation of MiniMax MCP, providing image generation,
 
 ## Release Notes
 
-### August 20, 2026 — v0.0.18
-
-#### ⚠️ Breaking Change
-- Removed the `music_generation` tool from stdio, REST, and SSE transports as part of the Music API sunset. Clients that depend on this tool must remove it from their expected tool list.
-
 ### July 22, 2025
 
 #### 🔧 Fixes & Improvements
