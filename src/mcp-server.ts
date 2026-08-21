@@ -11,7 +11,6 @@ import { VideoAPI } from './api/video.js';
 import { VoiceCloneAPI } from './api/voice-clone.js';
 import { VoiceAPI } from './api/voice.js';
 import { VoiceDesignAPI } from './api/voice-design.js';
-import { MusicAPI } from './api/music.js';
 import { playAudio } from './utils/audio.js';
 import { getParamValue } from '@chatmcp/sdk/utils/index.js';
 import fs from 'fs';
@@ -56,7 +55,6 @@ export class MCPServer {
   private voiceCloneApi: VoiceCloneAPI;
   private voiceApi: VoiceAPI;
   private voiceDesignApi: VoiceDesignAPI;
-  private musicApi: MusicAPI;
 
   /**
    * Create an MCP server instance (STDIO mode)
@@ -74,7 +72,6 @@ export class MCPServer {
     this.voiceCloneApi = new VoiceCloneAPI(this.api);
     this.voiceApi = new VoiceAPI(this.api);
     this.voiceDesignApi = new VoiceDesignAPI(this.api);
-    this.musicApi = new MusicAPI(this.api);
 
     // Create server instance
     this.server = new McpServer({
@@ -113,7 +110,6 @@ export class MCPServer {
     this.registerGenerateVideoTool();
     this.registerImageToVideoTool();
     this.registerQueryVideoGenerationTool();
-    this.registerMusicGenerationTool();
     this.registerVoiceDesignTool();
   }
 
@@ -692,83 +688,6 @@ export class MCPServer {
     );
   }
   
-  /**
-   * Register music generation tool 
-   */
-  private registerMusicGenerationTool(): void {
-    this.server.tool(
-      'music_generation',
-      'Create a music generation task using AI models. Generate music from prompt and lyrics.\n\nNote: This tool calls MiniMax API and may incur costs. Use only when explicitly requested by the user.',
-      {
-        prompt: z
-          .string()
-          .describe('Music creation inspiration describing style, mood, scene, etc.\nExample: "Pop music, sad, suitable for rainy nights". Character range: [10, 300]'),
-        lyrics: z
-          .string()
-          .describe('Song lyrics for music generation.\nUse newline (\\n) to separate each line of lyrics. Supports lyric structure tags [Intro][Verse][Chorus][Bridge][Outro]\nto enhance musicality. Character range: [10, 600] (each Chinese character, punctuation, and letter counts as 1 character)'),
-        sampleRate: z
-          .number()
-          .optional()
-          .default(DEFAULT_SAMPLE_RATE)
-          .describe('Sample rate of generated music. Values: [16000, 24000, 32000, 44100]'),
-        bitrate: z
-          .number()
-          .optional()
-          .default(DEFAULT_BITRATE)
-          .describe('Bitrate of generated music. Values: [32000, 64000, 128000, 256000]'),
-        format: z
-          .string()
-          .optional()
-          .default(DEFAULT_FORMAT)
-          .describe('Format of generated music. Values: ["mp3", "wav", "pcm"]'),
-        outputDirectory: COMMON_PARAMETERS_SCHEMA.outputDirectory,
-      },
-      async (params) => {
-        try {
-          // Automatically set resource mode (if not specified)
-          const outputFormat = this.config.resourceMode;
-          const musicRequest = {
-            ...params,
-            outputFormat,
-          };
-
-          // No need to update configuration from request parameters in stdio mode
-          const outputFile = await this.musicApi.generateMusic(musicRequest);
-
-          // Handle different output formats
-          if (this.config.resourceMode === RESOURCE_MODE_URL) {
-            return {
-              content: [
-                {
-                  type: 'text',
-                  text: `Success. Music URL: ${outputFile}`,
-                },
-              ],
-            };
-          } else {
-            return {
-              content: [
-                {
-                  type: 'text',
-                  text: `Success. Music saved as: ${outputFile}`,
-                },
-              ],
-            };
-          }
-        } catch (error) {
-          return {
-            content: [
-              {
-                type: 'text',
-                text: `Failed to generate music: ${error instanceof Error ? error.message : String(error)}`,
-              },
-            ],
-          };
-        }
-      },
-    );  
-  }
-
   /** 
    * Register voice design tool
    */
@@ -860,7 +779,6 @@ export class MCPServer {
     this.voiceCloneApi = new VoiceCloneAPI(this.api);
     this.voiceApi = new VoiceAPI(this.api);
     this.voiceDesignApi = new VoiceDesignAPI(this.api);
-    this.musicApi = new MusicAPI(this.api);
   }
 
   /**

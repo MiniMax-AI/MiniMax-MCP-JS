@@ -374,30 +374,6 @@ export class MCPRestServer {
               }
             },
             {
-              name: 'music_generation',
-              description: 'Generate music based on text prompt and lyrics',
-              arguments: [
-                { name: 'prompt', description: 'Music creation inspiration describing style, mood, scene, etc.', required: true },
-                { name: 'lyrics', description: 'Song lyrics for music generation.\nUse newline (\\n) to separate each line of lyrics. Supports lyric structure tags [Intro][Verse][Chorus][Bridge][Outro]\nto enhance musicality. Character range: [10, 600] (each Chinese character, punctuation, and letter counts as 1 character)', required: true },
-                { name: 'sampleRate', description: 'Sample rate of generated music', required: false },
-                { name: 'bitrate', description: 'Bitrate of generated music', required: false },
-                { name: 'format', description: 'Format of generated music', required: false },
-                { name: 'outputDirectory', description: OUTPUT_DIRECTORY_DESCRIPTION, required: false }
-              ],
-              inputSchema: {
-                type: 'object',
-                properties: {
-                  prompt: { type: 'string' },
-                  lyrics: { type: 'string' },
-                  sampleRate: { type: 'number' },
-                  bitrate: { type: 'number' },
-                  format: { type: 'string' },
-                  outputDirectory: { type: 'string' }
-                },
-                required: ['prompt', 'lyrics']
-              }
-            },
-            {
               name: 'voice_design',
               description: 'Generate a voice based on description prompts',
               arguments: [
@@ -468,9 +444,6 @@ export class MCPRestServer {
           case 'query_video_generation':
             return await this.handleVideoGenerationQuery(toolParams, requestApi, mediaService);
           
-          case 'music_generation':
-            return await this.handleGenerateMusic(toolParams, requestApi, mediaService);
-
           case 'voice_design':
             return await this.handleVoiceDesign(toolParams, requestApi, mediaService);
 
@@ -661,19 +634,6 @@ export class MCPRestServer {
       return result;
     } catch (error) {
       throw this.wrapError('Failed to query video generation', error);
-    }
-  }
-
-  /** 
-   * Handle generate music request
-   */
-  private async handleGenerateMusic(args: any, api: MiniMaxAPI, mediaService: MediaService, attempt = 1): Promise<any> {
-    try {
-      // Call media service to handle request
-      const result = await mediaService.generateMusic(args);
-      return result;
-    } catch (error) {
-      throw this.wrapError('Failed to generate music', error);
     }
   }
 

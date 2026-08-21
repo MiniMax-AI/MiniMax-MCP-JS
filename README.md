@@ -60,12 +60,10 @@ JavaScript/TypeScript implementation of MiniMax MCP, providing image generation,
 #### 🆕 What's New
 - **Voice Design**: New `voice_design` tool - create custom voices from descriptive prompts with preview audio
 - **Video Enhancement**: Added `MiniMax-Hailuo-02` model with ultra-clear quality and duration/resolution controls  
-- **Music Generation**: Enhanced `music_generation` tool powered by `music-1.5` model
 
 #### 📈 Enhanced Tools
 - `voice_design` - Generate personalized voices from text descriptions
 - `generate_video` - Now supports MiniMax-Hailuo-02 with 6s/10s duration and 768P/1080P resolution options
-- `music_generation` - High-quality music creation with music-1.5 model
 
 ## Features
 
@@ -73,7 +71,6 @@ JavaScript/TypeScript implementation of MiniMax MCP, providing image generation,
 - Image Generation
 - Video Generation
 - Voice Cloning
-- Music Generation
 - Voice Design
 - Dynamic configuration (supports both environment variables and request parameters)
 - Compatible with MCP platform hosting (ModelScope and other MCP platforms)
@@ -286,10 +283,7 @@ This prioritization ensures flexibility across different deployment scenarios wh
 <img src="https://public-cdn-video-data-algeng.oss-cn-wulanchabu.aliyuncs.com/gen_image.png?x-oss-process=image/resize,p_50/format,webp" style="display: inline-block; vertical-align: middle;"/>
 <img src="https://public-cdn-video-data-algeng.oss-cn-wulanchabu.aliyuncs.com/gen_image1.png?x-oss-process=image/resize,p_50/format,webp" style="display: inline-block; vertical-align: middle; "/>
 
-### 5. generate music
-<img src="https://filecdn.minimax.chat/public/5675b3dc-6789-4ceb-9505-8ef39ae4224f.png?x-oss-process=image/resize,p_50/format,webp" style="display: inline-block; vertical-align: middle;"/>
-
-### 6. voice design
+### 5. voice design
 <img src="https://filecdn.minimax.chat/public/5654f5df-0642-477f-9c5d-b853d185b8b0.png?x-oss-process=image/resize,p_50/format,webp" style="display: inline-block; vertical-align: middle;"/>
 
 ## Available Tools
@@ -384,21 +378,6 @@ Tool Name: `query_video_generation`
 Parameters:
 - `taskId`: The Task ID to query. Should be the task_id returned by `generate_video` tool if `async_mode` is True. (required)
 - `outputDirectory`: Directory to save the output file. `outputDirectory` is relative to `MINIMAX_MCP_BASE_PATH` (or `basePath` in config). The final save path is `${basePath}/${outputDirectory}`. For example, if `MINIMAX_MCP_BASE_PATH=~/Desktop` and `outputDirectory=workspace`, the output will be saved to `~/Desktop/workspace/`. (optional)
-
-### Generate Music
-
-Generate music from prompt and lyrics.
-
-Tool Name: `music_generation`
-
-Parameters:
-- `prompt`: Music creation inspiration describing style, mood, scene, etc. Example: "Pop music, sad, suitable for rainy nights". Character range: [10, 300]. (required)
-- `lyrics`: Song lyrics for music generation. Use newline (\\n) to separate each line of lyrics. Supports lyric structure tags [Intro] [Verse] [Chorus] [Bridge] [Outro] to enhance musicality. Character range: [10, 600] (each Chinese character, punctuation, and letter counts as 1 character). (required)
-- `sampleRate`: Sample rate of generated music. Values: [16000, 24000, 32000, 44100], default is 32000. (optional)
-- `bitrate`: Bitrate of generated music. Values: [32000, 64000, 128000, 256000], default is 128000. (optional)
-- `format`: Format of generated music. Values: ["mp3", "wav", "pcm"], default is 'mp3'. (optional)
-- `outputDirectory`: The directory to save the output file. `outputDirectory` is relative to `MINIMAX_MCP_BASE_PATH` (or `basePath` in config). The final save path is `${basePath}/${outputDirectory}`. For example, if `MINIMAX_MCP_BASE_PATH=~/Desktop` and `outputDirectory=workspace`, the output will be saved to `~/Desktop/workspace/`. (optional)
-
 
 ### Voice Design
 

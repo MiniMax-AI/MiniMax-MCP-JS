@@ -5,7 +5,6 @@ import { ImageAPI } from '../api/image.js';
 import { VideoAPI } from '../api/video.js';
 import { VoiceCloneAPI } from '../api/voice-clone.js';
 import { VoiceAPI } from '../api/voice.js';
-import { MusicAPI } from '../api/music.js';
 import { VoiceDesignAPI } from '../api/voice-design.js';
 import { Config } from '../types/index.js';
 import { RESOURCE_MODE_URL } from '../const/index.js';
@@ -19,7 +18,6 @@ export class MediaService extends BaseService {
   private videoApi: VideoAPI;
   private voiceCloneApi: VoiceCloneAPI;
   private voiceApi: VoiceAPI;
-  private musicApi: MusicAPI; 
   private voiceDesignApi: VoiceDesignAPI;
 
   /**
@@ -33,7 +31,6 @@ export class MediaService extends BaseService {
     this.videoApi = new VideoAPI(api);
     this.voiceCloneApi = new VoiceCloneAPI(api);
     this.voiceApi = new VoiceAPI(api);
-    this.musicApi = new MusicAPI(api);
     this.voiceDesignApi = new VoiceDesignAPI(api);
     this.config = {} as Config; // Initialize as empty object, will be set in initialize
   }
@@ -58,7 +55,6 @@ export class MediaService extends BaseService {
     this.videoApi = new VideoAPI(api);
     this.voiceCloneApi = new VoiceCloneAPI(api);
     this.voiceApi = new VoiceAPI(api);
-    this.musicApi = new MusicAPI(api);
     this.voiceDesignApi = new VoiceDesignAPI(api);
   }
 
@@ -219,20 +215,6 @@ export class MediaService extends BaseService {
       }
     } catch (error) {
       throw this.wrapError('Failed to query video generation status', error);
-    }
-  }
-
-  /**
-   * Generate music
-   * @param params Music generation parameters
-   * @returns Generation result (file path)
-   */
-  public async generateMusic(params: any): Promise<any> {
-    this.checkInitialized();
-    try {
-      return await this.musicApi.generateMusic(params);
-    } catch (error) {
-      throw this.wrapError('Failed to generate music', error);
     }
   }
 
