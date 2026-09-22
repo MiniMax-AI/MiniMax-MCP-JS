@@ -133,14 +133,17 @@ export class MediaService extends BaseService {
   public async generateVideo(params: any): Promise<any> {
     this.checkInitialized();
     try {
+      // REST tools expose the option as async_mode, while VideoAPI uses asyncMode.
+      const asyncMode = params.asyncMode ?? params.async_mode;
+
       // Auto-generate output filename if not provided
       if (!params.outputFile) {
         const promptPrefix = params.prompt.substring(0, 20).replace(/[^\w]/g, '_');
         params.outputFile = `video_${promptPrefix}_${Date.now()}`;
       }
 
-      const result = await this.videoApi.generateVideo(params);
-      if (params.async_mode) {
+      const result = await this.videoApi.generateVideo({ ...params, asyncMode });
+      if (asyncMode) {
         return {
           content: [
             {
