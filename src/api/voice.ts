@@ -34,7 +34,8 @@ export class VoiceAPI {
       }
 
       for (const voice of voiceCloneVoices) {
-        voiceCloneVoiceList.push(`Name: ${voice.voice_name}, ID: ${voice.voice_id}`);
+        const voiceName = voice.voice_name || voice.voice_id;
+        voiceCloneVoiceList.push(`Name: ${voiceName}, ID: ${voice.voice_id}`);
       }
 
       return {
