@@ -408,6 +408,10 @@ export class MCPServer {
           .describe('Image aspect ratio, values: ["1:1", "16:9","4:3", "3:2", "2:3", "3:4", "9:16", "21:9"]'),
         n: z.number().min(1).max(9).optional().default(1).describe('Number of images to generate'),
         promptOptimizer: z.boolean().optional().default(true).describe('Whether to optimize the prompt'),
+        subjectReference: z
+          .string()
+          .optional()
+          .describe('Path to a local image file or public URL for character reference'),
         outputDirectory: COMMON_PARAMETERS_SCHEMA.outputDirectory,
         outputFile: z
           .string()

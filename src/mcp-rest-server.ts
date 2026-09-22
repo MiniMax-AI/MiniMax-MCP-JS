@@ -282,6 +282,7 @@ export class MCPRestServer {
                 { name: 'aspectRatio', description: 'Image aspect ratio, values: ["1:1", "16:9","4:3", "3:2", "2:3", "3:4", "9:16", "21:9"]', required: false },
                 { name: 'n', description: 'Number of images to generate (1-9)', required: false },
                 { name: 'promptOptimizer', description: 'Whether to optimize prompt', required: false },
+                { name: 'subjectReference', description: 'Path to a local image file or public URL for character reference', required: false },
                 { name: 'outputDirectory', description: OUTPUT_DIRECTORY_DESCRIPTION, required: false },
                 { name: 'outputFile', description: 'Output file path, auto-generated if not provided', required: false }
               ],
@@ -293,6 +294,7 @@ export class MCPRestServer {
                   aspectRatio: { type: 'string' },
                   n: { type: 'number' },
                   promptOptimizer: { type: 'boolean' },
+                  subjectReference: { type: 'string' },
                   outputDirectory: { type: 'string' },
                   outputFile: { type: 'string' }
                 },
