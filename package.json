@@ -13,6 +13,7 @@
     "dev": "tsc -w",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "prettier --check \"src/**/*.ts\"",
+    "test": "node --test tests/rest-async-video.test.mjs",
     "prepare": "pnpm run build",
     "pretest": "pnpm run build",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
