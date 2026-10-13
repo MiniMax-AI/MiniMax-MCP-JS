@@ -51,7 +51,9 @@ export class ConfigManager {
 
     // Merge default configuration (lowest priority - 5)
     if (defaultConfig) {
-      Object.assign(config, defaultConfig);
+      Object.assign(config, defaultConfig, {
+        server: { ...config.server, ...defaultConfig.server },
+      });
     }
 
     // Apply configurations in order from low to high priority
@@ -67,7 +69,9 @@ export class ConfigManager {
 
     // 4. Merge request-level configuration (highest priority - 1)
     if (requestConfig) {
-      Object.assign(config, requestConfig);
+      Object.assign(config, requestConfig, {
+        server: { ...config.server, ...requestConfig.server },
+      });
     }
 
     // console.log(`[${new Date().toISOString()}] Configuration loaded, transport mode: ${config.server?.mode || DEFAULT_TRANSPORT_MODE}`);
